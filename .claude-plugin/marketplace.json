@@ -1,18 +1,32 @@
 {
   "name": "dify-skills",
-  "version": "0.1.0",
-  "description": "Claude Code skills for generating Dify apps, debugging DSL, and creating plugins",
-  "author": "ilyasabdut",
-  "license": "MIT",
-  "skills": [
-    "using-dify-skills",
-    "dify-dsl-expert",
-    "dify-node-catalog",
-    "dify-workflow-patterns",
-    "dify-variable-system",
-    "dify-app-debugger",
-    "dify-import-export",
-    "dify-plugin-maker"
-  ],
-  "category": "workflow-automation"
+  "owner": {
+    "name": "ilyasabdut",
+    "email": "ilyasabduttawab@gmail.com"
+  },
+  "metadata": {
+    "description": "Claude Code skills for generating Dify apps, debugging DSL, and creating plugins",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "dify-skills",
+      "source": "./",
+      "description": "Generate Dify apps from natural language, debug DSL YAML, create custom plugins",
+      "version": "0.1.0",
+      "author": {
+        "name": "ilyasabdut"
+      },
+      "category": "workflow-automation",
+      "keywords": [
+        "dify",
+        "workflow",
+        "dsl",
+        "plugin",
+        "llm",
+        "chatbot",
+        "rag"
+      ]
+    }
+  ]
 }

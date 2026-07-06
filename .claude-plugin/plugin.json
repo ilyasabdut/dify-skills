@@ -1,6 +1,21 @@
 {
   "name": "dify-skills",
   "version": "0.1.0",
-  "author": "ilyasabdut",
-  "license": "MIT"
+  "description": "Generate Dify apps from natural language, debug DSL YAML, and create custom Dify plugins",
+  "author": {
+    "name": "ilyasabdut",
+    "url": "https://github.com/ilyasabdut"
+  },
+  "repository": "https://github.com/ilyasabdut/dify-skills",
+  "license": "MIT",
+  "keywords": [
+    "dify",
+    "workflow",
+    "dsl",
+    "plugin",
+    "llm",
+    "chatbot",
+    "rag"
+  ],
+  "skills": "./skills/"
 }
