@@ -1,6 +1,6 @@
 ---
 name: dify-workflow-patterns
-description: "Proven workflow architectural patterns for Dify apps. Use when building new workflows, choosing app structure, or deciding which nodes to combine for a use case."
+description: "Use when building a new Dify app from scratch, choosing between workflow vs chatflow, deciding which nodes to combine, or needing a complete DSL template for a common use case like RAG, agents, or data processing."
 ---
 
 # Dify Workflow Patterns

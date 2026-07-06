@@ -1,6 +1,6 @@
 ---
 name: dify-variable-system
-description: "Dify variable reference and selector syntax. Use when wiring nodes together, referencing outputs from upstream nodes, or debugging broken variable references."
+description: "Use when wiring nodes together, referencing outputs from upstream nodes, debugging 'variable not found' errors, or passing data between workflow steps. Symptoms: empty outputs, broken selectors, type mismatches."
 ---
 
 # Dify Variable System

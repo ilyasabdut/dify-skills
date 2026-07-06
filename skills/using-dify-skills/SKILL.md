@@ -1,6 +1,6 @@
 ---
 name: using-dify-skills
-description: "Router skill for Dify app generation. Always loaded. Routes user intent to specialist skills for generating valid Dify DSL YAML, configuring nodes, debugging apps, and deploying workflows."
+description: "Use when building Dify apps, generating workflow DSL YAML, debugging broken imports, creating plugins, or asking about node configuration. Always loaded as the entry point for all Dify-related tasks."
 ---
 
 # Dify Skills Router

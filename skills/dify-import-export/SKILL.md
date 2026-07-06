@@ -1,6 +1,6 @@
 ---
 name: dify-import-export
-description: "Dify app import/export mechanics. Use when deploying generated DSL YAML to a running Dify instance, exporting existing apps, or handling import errors."
+description: "Use when deploying generated DSL YAML to a Dify instance, exporting existing apps, handling 'pending' import status, replacing placeholder dataset IDs, or automating app deployment via API."
 ---
 
 # Dify Import/Export

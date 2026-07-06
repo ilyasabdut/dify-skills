@@ -1,6 +1,6 @@
 ---
 name: dify-node-catalog
-description: "Complete configuration reference for all Dify workflow node types. Use when configuring specific nodes, looking up required fields, or understanding node inputs/outputs."
+description: "Use when configuring a specific workflow node, looking up required fields for a node type, checking what outputs a node produces, or troubleshooting 'invalid node config' errors. Covers all 40 Dify node types."
 ---
 
 # Dify Node Catalog

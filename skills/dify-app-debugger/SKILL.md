@@ -1,6 +1,6 @@
 ---
 name: dify-app-debugger
-description: "Debug broken Dify DSL YAML files. Use when an app fails to import, produces errors, or doesn't behave as expected. Identifies structural issues, broken references, and configuration mistakes."
+description: "Use when a Dify app fails to import, produces errors at runtime, nodes don't execute, outputs are empty, or behavior doesn't match expectations. Symptoms: 'orphan node', 'variable not found', blank responses, import rejected."
 ---
 
 # Dify App Debugger

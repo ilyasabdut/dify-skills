@@ -1,6 +1,6 @@
 ---
 name: dify-plugin-maker
-description: "Create Dify plugins (tool, model, agent strategy, trigger). Use when building custom tools, model providers, agent strategies, or event triggers for the Dify platform. Knows manifest format, SDK patterns, and plugin types."
+description: "Use when creating a custom Dify plugin, scaffolding a tool provider, building a model integration, implementing an agent strategy, or setting up a trigger. Also for remote debugging plugins against a Dify instance."
 ---
 
 # Dify Plugin Maker

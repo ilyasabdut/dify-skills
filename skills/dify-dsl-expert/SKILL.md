@@ -1,6 +1,6 @@
 ---
 name: dify-dsl-expert
-description: "Dify DSL format expert. Use when generating, validating, or troubleshooting DSL YAML structure. Knows required fields, versioning, mode-specific sections, and structural validation rules."
+description: "Use when generating DSL YAML, validating structure before import, fixing 'invalid format' errors, checking version compatibility, or assembling workflow/model_config sections. Symptoms: import fails, YAML parse errors, mode mismatches."
 ---
 
 # Dify DSL Expert
