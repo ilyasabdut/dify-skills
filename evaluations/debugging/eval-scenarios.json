@@ -1,0 +1,35 @@
+[
+  {
+    "id": "debug-001",
+    "skills": ["dify-app-debugger"],
+    "query": "Why does this workflow fail? The LLM node references {{#start_node.query#}} but nothing happens",
+    "expected_behavior": [
+      "Identifies broken variable selector",
+      "Notes that node ID 'start_node' likely should be 'start'",
+      "Explains correct selector syntax: {{#start.query#}}",
+      "Checks if 'query' variable is defined in start node"
+    ]
+  },
+  {
+    "id": "debug-002",
+    "skills": ["dify-app-debugger"],
+    "query": "My chatflow uses an end node but it doesn't stream the response",
+    "expected_behavior": [
+      "Identifies mode mismatch error E040",
+      "Explains that advanced-chat mode requires answer node, not end",
+      "Provides the fix: replace end with answer node",
+      "Shows correct answer node config"
+    ]
+  },
+  {
+    "id": "debug-003",
+    "skills": ["dify-app-debugger"],
+    "query": "Import fails with 'orphan node detected' error",
+    "expected_behavior": [
+      "Identifies graph structure error E012",
+      "Explains that every non-root node needs incoming edge",
+      "Asks to see the DSL to identify which node is disconnected",
+      "Suggests adding the missing edge"
+    ]
+  }
+]

@@ -1,0 +1,81 @@
+version: "0.6.0"
+kind: "app"
+app:
+  name: "Simple Workflow"
+  mode: "workflow"
+  icon: "✨"
+  icon_background: "#E4FBCC"
+  description: "Simple text generation workflow"
+dependencies: []
+workflow:
+  graph:
+    nodes:
+      - id: "start"
+        type: custom
+        position: {x: 80, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: start
+          title: Start
+          variables:
+            - variable: query
+              label: Query
+              type: text-input
+              required: true
+              max_length: 2000
+      - id: "llm"
+        type: custom
+        position: {x: 380, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: llm
+          title: LLM
+          model:
+            provider: openai
+            name: gpt-4o-mini
+            mode: chat
+            completion_params:
+              temperature: 0.7
+          prompt_template:
+            - role: system
+              text: "You are a helpful assistant."
+            - role: user
+              text: "{{#start.query#}}"
+          memory:
+            enabled: false
+          context:
+            enabled: false
+          vision:
+            enabled: false
+      - id: "end"
+        type: custom
+        position: {x: 680, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: end
+          title: End
+          outputs:
+            - variable: result
+              value_type: string
+              value_selector:
+                - llm
+                - text
+    edges:
+      - id: "start-llm"
+        source: "start"
+        sourceHandle: "source"
+        target: "llm"
+        targetHandle: "target"
+      - id: "llm-end"
+        source: "llm"
+        sourceHandle: "source"
+        target: "end"
+        targetHandle: "target"
+  features:
+    file_upload:
+      enabled: false
+  environment_variables: []
+  conversation_variables: []

@@ -1,0 +1,112 @@
+version: "0.6.0"
+kind: "app"
+app:
+  name: "API Orchestration"
+  mode: "workflow"
+  icon: "🔗"
+  icon_background: "#D5F5F6"
+  description: "Fetch from API with error handling"
+dependencies: []
+workflow:
+  graph:
+    nodes:
+      - id: "start"
+        type: custom
+        position: {x: 80, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: start
+          title: Start
+          variables:
+            - variable: url
+              label: API URL
+              type: text-input
+              required: true
+              max_length: 500
+      - id: "http"
+        type: custom
+        position: {x: 380, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: http-request
+          title: Fetch API
+          method: GET
+          url: "{{#start.url#}}"
+          headers: "Accept: application/json"
+          params: ""
+          body: null
+          authorization:
+            type: no-auth
+          timeout:
+            connect: 10
+            read: 30
+            write: 10
+      - id: "process"
+        type: custom
+        position: {x: 680, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: code
+          title: Process Response
+          variables:
+            - variable: body
+              value_selector:
+                - http
+                - body
+            - variable: status
+              value_selector:
+                - http
+                - status_code
+          code_language: python3
+          code: |
+            import json
+
+            def main(body: str, status: int) -> dict:
+                if status != 200:
+                    return {"result": f"Error: HTTP {status}", "success": False}
+                try:
+                    data = json.loads(body)
+                    return {"result": json.dumps(data, indent=2), "success": True}
+                except json.JSONDecodeError:
+                    return {"result": body[:1000], "success": True}
+          outputs:
+            result:
+              type: string
+            success:
+              type: number
+      - id: "end"
+        type: custom
+        position: {x: 980, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: end
+          title: End
+          outputs:
+            - variable: result
+              value_type: string
+              value_selector:
+                - process
+                - result
+    edges:
+      - id: "start-http"
+        source: "start"
+        sourceHandle: "source"
+        target: "http"
+        targetHandle: "target"
+      - id: "http-process"
+        source: "http"
+        sourceHandle: "source"
+        target: "process"
+        targetHandle: "target"
+      - id: "process-end"
+        source: "process"
+        sourceHandle: "source"
+        target: "end"
+        targetHandle: "target"
+  features: {}
+  environment_variables: []
+  conversation_variables: []

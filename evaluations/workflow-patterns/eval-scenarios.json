@@ -1,0 +1,64 @@
+[
+  {
+    "id": "pattern-001",
+    "skills": ["dify-workflow-patterns", "dify-dsl-expert"],
+    "query": "Build me a simple chatbot that helps users write emails",
+    "expected_behavior": [
+      "Identifies this as simple_chatbot pattern",
+      "Uses advanced-chat mode",
+      "Creates start -> llm -> answer structure",
+      "Sets appropriate system prompt for email writing",
+      "Enables memory for conversation context",
+      "Produces valid DSL YAML with version 0.6.0",
+      "All variable selectors resolve correctly"
+    ]
+  },
+  {
+    "id": "pattern-002",
+    "skills": ["dify-workflow-patterns", "dify-node-catalog"],
+    "query": "I need a workflow that searches my knowledge base and summarizes the results",
+    "expected_behavior": [
+      "Identifies this as rag_chatbot pattern",
+      "Includes knowledge-retrieval node with placeholder dataset_ids",
+      "LLM node references knowledge retrieval output in context",
+      "Uses correct variable selector syntax",
+      "Notes that dataset_ids need to be filled with actual IDs"
+    ]
+  },
+  {
+    "id": "pattern-003",
+    "skills": ["dify-workflow-patterns", "dify-node-catalog"],
+    "query": "Create a workflow that takes a list of URLs, fetches each one, and summarizes the content",
+    "expected_behavior": [
+      "Identifies this as data_processing_pipeline pattern",
+      "Uses workflow mode with start -> code (parse) -> iteration -> code (merge) -> end",
+      "Inside iteration: http-request -> llm (summarize)",
+      "Correctly wires iteration iterator_selector to the parsed list",
+      "Sets error_handle_mode to CONTINUE_ON_ERROR"
+    ]
+  },
+  {
+    "id": "pattern-004",
+    "skills": ["dify-workflow-patterns"],
+    "query": "Build a chatbot that can search the web and do calculations",
+    "expected_behavior": [
+      "Identifies this as agent_with_tools pattern",
+      "Uses advanced-chat mode or agent-chat mode",
+      "Includes agent node with google_search and calculator tools",
+      "Enables memory for conversation",
+      "Sets reasonable max_iterations limit"
+    ]
+  },
+  {
+    "id": "pattern-005",
+    "skills": ["dify-workflow-patterns", "dify-node-catalog"],
+    "query": "Create a text summarization API endpoint",
+    "expected_behavior": [
+      "Identifies this as text_generation pattern",
+      "Uses workflow mode (single-shot, not conversational)",
+      "Creates start (input_text variable) -> llm -> end",
+      "System prompt focuses on summarization",
+      "Low temperature for consistent output"
+    ]
+  }
+]

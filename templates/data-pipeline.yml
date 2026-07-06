@@ -1,0 +1,142 @@
+version: "0.6.0"
+kind: "app"
+app:
+  name: "Data Pipeline"
+  mode: "workflow"
+  icon: "⚙️"
+  icon_background: "#E4FBCC"
+  description: "Process a list of items with LLM"
+dependencies: []
+workflow:
+  graph:
+    nodes:
+      - id: "start"
+        type: custom
+        position: {x: 80, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: start
+          title: Start
+          variables:
+            - variable: items_json
+              label: Items (JSON array)
+              type: paragraph
+              required: true
+              max_length: 50000
+      - id: "parse"
+        type: custom
+        position: {x: 380, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: code
+          title: Parse Items
+          variables:
+            - variable: raw_input
+              value_selector:
+                - start
+                - items_json
+          code_language: python3
+          code: |
+            import json
+
+            def main(raw_input: str) -> dict:
+                items = json.loads(raw_input)
+                return {"items": items, "count": len(items)}
+          outputs:
+            items:
+              type: array[object]
+            count:
+              type: number
+      - id: "iteration"
+        type: custom
+        position: {x: 680, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: iteration
+          title: Process Each
+          iterator_selector:
+            - parse
+            - items
+          output_selector:
+            - iter_llm
+            - text
+          is_parallel: false
+          parallel_nums: 10
+          error_handle_mode: CONTINUE_ON_ERROR
+          flatten_output: true
+      - id: "iter_start"
+        type: custom
+        position: {x: 720, y: 400}
+        sourcePosition: right
+        targetPosition: left
+        parentId: "iteration"
+        data:
+          type: iteration-start
+          title: Iteration Start
+      - id: "iter_llm"
+        type: custom
+        position: {x: 920, y: 400}
+        sourcePosition: right
+        targetPosition: left
+        parentId: "iteration"
+        data:
+          type: llm
+          title: Process Item
+          model:
+            provider: openai
+            name: gpt-4o-mini
+            mode: chat
+            completion_params:
+              temperature: 0.3
+          prompt_template:
+            - role: system
+              text: "Summarize the following item in one concise sentence."
+            - role: user
+              text: "{{#iter_start.item#}}"
+          memory:
+            enabled: false
+          context:
+            enabled: false
+          vision:
+            enabled: false
+      - id: "end"
+        type: custom
+        position: {x: 980, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: end
+          title: End
+          outputs:
+            - variable: results
+              value_type: array
+              value_selector:
+                - iteration
+                - output
+    edges:
+      - id: "start-parse"
+        source: "start"
+        sourceHandle: "source"
+        target: "parse"
+        targetHandle: "target"
+      - id: "parse-iteration"
+        source: "parse"
+        sourceHandle: "source"
+        target: "iteration"
+        targetHandle: "target"
+      - id: "iter_start-iter_llm"
+        source: "iter_start"
+        sourceHandle: "source"
+        target: "iter_llm"
+        targetHandle: "target"
+      - id: "iteration-end"
+        source: "iteration"
+        sourceHandle: "source"
+        target: "end"
+        targetHandle: "target"
+  features: {}
+  environment_variables: []
+  conversation_variables: []

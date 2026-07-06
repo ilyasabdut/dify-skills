@@ -1,0 +1,33 @@
+[
+  {
+    "id": "var-001",
+    "skills": ["dify-variable-system"],
+    "query": "How do I reference the LLM output in my answer node?",
+    "expected_behavior": [
+      "Explains template syntax: {{#llm_node_id.text#}}",
+      "Shows correct answer node config",
+      "Notes that node_id must match the actual id of the LLM node"
+    ]
+  },
+  {
+    "id": "var-002",
+    "skills": ["dify-variable-system"],
+    "query": "How do I pass the user's uploaded file to a document extractor?",
+    "expected_behavior": [
+      "Explains sys.files for chatflow mode",
+      "Shows start variable with type file-list for workflow mode",
+      "Shows document-extractor variable_selector pointing to the file variable"
+    ]
+  },
+  {
+    "id": "var-003",
+    "skills": ["dify-variable-system"],
+    "query": "How do I use environment variables in my workflow?",
+    "expected_behavior": [
+      "Explains {{#env.VARIABLE_NAME#}} syntax",
+      "Shows how to define environment_variables in workflow section",
+      "Distinguishes secret vs string value_type",
+      "Notes that secrets are encrypted on export"
+    ]
+  }
+]

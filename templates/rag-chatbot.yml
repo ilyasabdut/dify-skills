@@ -1,0 +1,109 @@
+version: "0.6.0"
+kind: "app"
+app:
+  name: "RAG Chatbot"
+  mode: "advanced-chat"
+  icon: "📚"
+  icon_background: "#D5F5F6"
+  description: "Chat with your documents using knowledge base retrieval"
+dependencies: []
+workflow:
+  graph:
+    nodes:
+      - id: "start"
+        type: custom
+        position: {x: 80, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: start
+          title: Start
+          variables: []
+      - id: "knowledge"
+        type: custom
+        position: {x: 380, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: knowledge-retrieval
+          title: Knowledge Retrieval
+          query_variable_selector:
+            - sys
+            - query
+          dataset_ids:
+            - "DATASET_ID_PLACEHOLDER"
+          retrieval_mode: multiple
+          multiple_retrieval_config:
+            top_k: 3
+            score_threshold: 0.5
+            reranking_enable: false
+      - id: "llm"
+        type: custom
+        position: {x: 680, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: llm
+          title: LLM
+          model:
+            provider: openai
+            name: gpt-4o-mini
+            mode: chat
+            completion_params:
+              temperature: 0.7
+          prompt_template:
+            - role: system
+              text: |
+                You are a knowledgeable assistant. Answer questions based on the provided context.
+                If the context doesn't contain relevant information, say so.
+
+                Context:
+                {{#knowledge.result#}}
+            - role: user
+              text: "{{#sys.query#}}"
+          memory:
+            enabled: true
+            window:
+              enabled: true
+              size: 10
+          context:
+            enabled: true
+            variable_selector:
+              - knowledge
+              - result
+          vision:
+            enabled: false
+      - id: "answer"
+        type: custom
+        position: {x: 980, y: 282}
+        sourcePosition: right
+        targetPosition: left
+        data:
+          type: answer
+          title: Answer
+          answer: "{{#llm.text#}}"
+    edges:
+      - id: "start-knowledge"
+        source: "start"
+        sourceHandle: "source"
+        target: "knowledge"
+        targetHandle: "target"
+      - id: "knowledge-llm"
+        source: "knowledge"
+        sourceHandle: "source"
+        target: "llm"
+        targetHandle: "target"
+      - id: "llm-answer"
+        source: "llm"
+        sourceHandle: "source"
+        target: "answer"
+        targetHandle: "target"
+  features:
+    retriever_resource:
+      enabled: true
+    opening_statement: "Hello! Ask me anything about your documents."
+    suggested_questions:
+      - "What is this document about?"
+      - "Summarize the key points"
+  environment_variables: []
+  conversation_variables: []

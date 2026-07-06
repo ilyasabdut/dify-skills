@@ -1,0 +1,36 @@
+[
+  {
+    "id": "node-001",
+    "skills": ["dify-node-catalog"],
+    "query": "How do I configure an LLM node with memory and context?",
+    "expected_behavior": [
+      "References CORE_NODES.md LLM section",
+      "Shows memory config with window.enabled and size",
+      "Shows context config with variable_selector pointing to knowledge node",
+      "Notes memory only works in advanced-chat mode"
+    ]
+  },
+  {
+    "id": "node-002",
+    "skills": ["dify-node-catalog"],
+    "query": "I need a code node that parses JSON and extracts specific fields",
+    "expected_behavior": [
+      "References LOGIC_NODES.md code section",
+      "Uses python3 code_language",
+      "Shows proper main() function with dict return",
+      "Defines outputs matching return dict keys",
+      "Shows variable input referencing upstream node"
+    ]
+  },
+  {
+    "id": "node-003",
+    "skills": ["dify-node-catalog"],
+    "query": "How do I set up an HTTP request with bearer token auth?",
+    "expected_behavior": [
+      "References DATA_NODES.md http-request section",
+      "Shows authorization type api-key with bearer config",
+      "Uses environment variable for token: {{#env.API_KEY#}}",
+      "Shows timeout configuration"
+    ]
+  }
+]
