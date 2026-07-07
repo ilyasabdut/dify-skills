@@ -1,69 +1,202 @@
 # Dify Skills
 
-> Claude Code skills for generating [Dify](https://dify.ai) apps and plugins from natural language.
+[![GitHub stars](https://img.shields.io/github/stars/ilyasabdut/dify-skills?style=social)](https://github.com/ilyasabdut/dify-skills)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Dify 1.30+](https://img.shields.io/badge/Dify-1.30%2B-blue.svg)](https://dify.ai)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-plugin-purple.svg)](https://docs.anthropic.com/en/docs/claude-code)
 
-Tell Claude Code what you want — it generates valid, import-ready DSL YAML or scaffolds a complete plugin project.
+> **Expert Claude Code skills for building flawless Dify workflows and plugins.**
+
+Tell Claude Code what you want — it generates valid, import-ready DSL YAML or scaffolds a complete plugin project. 8 specialist skills, 40 node types, 8 workflow patterns.
 
 Inspired by [n8n-skills](https://github.com/czlonkowski/n8n-skills) and [superpowers](https://github.com/obra/superpowers).
 
 ---
 
-## Install
+## 🎯 What is this?
 
+Building Dify apps by hand means learning DSL YAML format, node configuration schemas, variable selector syntax, and plugin SDK patterns. These skills teach Claude Code all of that so you don't have to.
+
+- ✅ Generate complete, import-ready Dify apps from natural language
+- ✅ All 40 workflow node types with correct configuration
+- ✅ 8 proven architectural patterns (RAG, agents, pipelines, routing)
+- ✅ Debug broken DSL files with systematic error identification
+- ✅ Scaffold custom Dify plugins (tools, models, agent strategies, triggers)
+- ✅ Validated against `claude plugin validate` — clean install
+
+---
+
+## 🚀 Installation
+
+### Claude Code (plugin directory)
 ```bash
 claude --plugin-dir /path/to/dify-skills
 ```
 
-Or add to your project's `.claude/settings.json`:
+### Claude Code (settings.json)
+Add to your project's `.claude/settings.json`:
 ```json
 {
   "plugins": ["/path/to/dify-skills"]
 }
 ```
 
----
-
-## What It Does
-
-```
-You: "Build me a RAG chatbot that searches my product docs"
-
-Claude: [invokes dify-workflow-patterns → dify-node-catalog → dify-dsl-expert]
-        → Produces valid DSL YAML ready to import into Dify
-```
-
-```
-You: "Create a Dify tool plugin that fetches weather data"
-
-Claude: [invokes dify-plugin-maker]
-        → Scaffolds manifest.yaml, provider, tool implementation
-```
-
-```
-You: "This DSL fails on import — debug it"
-
-Claude: [invokes dify-app-debugger]
-        → Identifies broken variable selectors, missing edges, mode mismatches
+### From GitHub
+```bash
+git clone https://github.com/ilyasabdut/dify-skills.git
+claude --plugin-dir ./dify-skills
 ```
 
 ---
 
-## Skills
+## 📚 The 8 Skills
 
-| Skill | Purpose |
-|-------|---------|
-| **using-dify-skills** | Router — always loaded, dispatches to specialists |
-| **dify-dsl-expert** | DSL YAML format, validation rules, version handling |
-| **dify-node-catalog** | All 40 node types with exact configuration schemas |
-| **dify-workflow-patterns** | 8 proven workflow architectures with complete templates |
-| **dify-variable-system** | How to wire nodes together (`{{#node.field#}}` syntax) |
-| **dify-app-debugger** | Parse broken DSL, identify issues, suggest fixes |
-| **dify-import-export** | Deploy via API, handle dependencies |
-| **dify-plugin-maker** | Create tool/model/agent/trigger plugins from scratch |
+### 1. using-dify-skills (Router)
+
+The always-loaded entry point. Routes your intent to the right specialist skill.
+
+**Activates when:** Any Dify-related request — building apps, debugging, creating plugins.
 
 ---
 
-## Workflow Patterns
+### 2. dify-dsl-expert
+
+Knows the exact DSL YAML structure, required fields, version handling, and validation rules.
+
+**Activates when:** Generating DSL YAML, validating structure before import, fixing format errors, mode mismatches.
+
+**Key features:**
+- Complete field reference (required vs optional)
+- Structural validation checklist (14 checks)
+- Common mistakes table with fixes
+- Version compatibility handling
+
+---
+
+### 3. dify-node-catalog
+
+Configuration reference for all 40 workflow node types — minimal config, full config, outputs, and gotchas.
+
+**Activates when:** Configuring a specific node, looking up required fields, checking outputs, troubleshooting node errors.
+
+**Key features:**
+- 5 reference files: Core, Logic, Data, Advanced, SQL nodes
+- Each node: minimal config, full config, outputs table, gotchas
+- Copy-paste ready YAML snippets
+
+---
+
+### 4. dify-workflow-patterns
+
+8 proven architectural patterns with complete DSL templates.
+
+**Activates when:** Building a new app from scratch, choosing workflow vs chatflow, needing a template for RAG/agents/pipelines.
+
+**Key features:**
+- Complete import-ready DSL per pattern
+- Customization points table
+- Variations for common modifications
+- Architecture diagrams
+
+---
+
+### 5. dify-variable-system
+
+How to pass data between nodes — selector syntax, system variables, outputs per node type.
+
+**Activates when:** Wiring nodes together, debugging "variable not found" errors, passing data between steps.
+
+**Key features:**
+- Two syntax forms (`{{#node.field#}}` and `[node, field]`)
+- System variables reference (sys.query, sys.files)
+- Output fields per node type table
+- Debugging guide for empty/null values
+
+---
+
+### 6. dify-app-debugger
+
+Systematic debugging protocol for broken DSL files with 50+ cataloged errors.
+
+**Activates when:** App fails to import, nodes don't execute, outputs are empty, behavior doesn't match expectations.
+
+**Key features:**
+- 6-step debug protocol
+- Error catalog: import errors, graph errors, variable errors, node config errors, mode mismatches
+- Each error: symptom → cause → fix
+
+---
+
+### 7. dify-import-export
+
+Deploy generated apps to a running Dify instance via API.
+
+**Activates when:** Deploying DSL YAML, exporting apps, handling pending imports, replacing placeholder IDs.
+
+**Key features:**
+- Import/export API endpoints
+- Response states and handling
+- Deployment workflow checklist
+- Console token guidance
+
+---
+
+### 8. dify-plugin-maker
+
+Create custom Dify plugins from scratch — tools, models, agent strategies, triggers.
+
+**Activates when:** Building a custom tool, integrating a model provider, implementing an agent strategy, setting up triggers.
+
+**Key features:**
+- Complete file structure per plugin type
+- manifest.yaml format with all fields
+- Tool implementation (Python SDK patterns)
+- Model provider implementation
+- Agent strategy with tool/LLM invocation
+- Trigger plugin guide
+- Remote debugging setup
+- SDK quick reference
+
+---
+
+## 💡 Usage Examples
+
+```
+"Build me a RAG chatbot that searches my product docs"
+→ dify-workflow-patterns → dify-node-catalog → dify-dsl-expert
+→ Complete DSL YAML ready to import
+
+"Create a workflow that fetches data from an API and summarizes each item"
+→ dify-workflow-patterns (data_processing_pipeline)
+→ Start → HTTP → Iteration[LLM] → End
+
+"This DSL fails on import with 'orphan node' error"
+→ dify-app-debugger → identifies disconnected node → suggests edge fix
+
+"Create a Dify tool plugin that integrates with Slack"
+→ dify-plugin-maker → scaffolds manifest + provider + tool implementation
+
+"How do I reference the LLM output in my answer node?"
+→ dify-variable-system → {{#llm_node_id.text#}}
+```
+
+---
+
+## 📊 What's Included
+
+| Component | Count |
+|-----------|-------|
+| Skills | 8 |
+| Workflow patterns | 8 |
+| Node types documented | 40 |
+| DSL templates | 5 |
+| Evaluation scenarios | 14 |
+| Plugin type guides | 4 |
+| Error catalog entries | 50+ |
+
+---
+
+## 🏗️ Workflow Patterns
 
 | Pattern | Mode | Flow |
 |---------|------|------|
@@ -76,105 +209,42 @@ Claude: [invokes dify-app-debugger]
 | Document Analysis | `workflow` | Start → DocExtractor → LLM → End |
 | Conditional Routing | `advanced-chat` | Start → Classifier → [A/B/C] → Answer |
 
-Each pattern includes a complete DSL YAML template you can import directly.
+---
+
+## 🔌 Plugin Maker
+
+| Plugin Type | Use Case |
+|-------------|----------|
+| **Tool** | API integrations, utilities, custom functions |
+| **Model** | LLM/embedding/rerank provider wrappers |
+| **Agent Strategy** | Custom reasoning loops (ReAct, FC, CoT) |
+| **Trigger** | Webhook/schedule/event-based workflow starts |
 
 ---
 
-## Node Coverage
-
-**40 node types** documented with minimal config, full config, outputs, and gotchas:
-
-| Category | Nodes |
-|----------|-------|
-| Core | start, end, answer, llm |
-| Logic | if-else, code, template-transform, iteration, loop, list-operator, assigner |
-| Data | knowledge-retrieval, http-request, tool, datasource, document-extractor |
-| Advanced | agent, parameter-extractor, question-classifier, human-input, app, variable-aggregator |
-| SQL | vannaai-connector, vannaai-question, vannaai-training, sql-output-chart/table/summary |
-| Cache | cache-retrieve, cache-store |
-| Triggers | trigger-webhook, trigger-schedule, trigger-plugin |
-
----
-
-## Plugin Maker
-
-Generate complete Dify plugin projects:
-
-| Plugin Type | What It Does |
-|-------------|-------------|
-| **Tool** | Custom tools for workflows/agents (API integrations, utilities) |
-| **Model** | LLM/embedding/rerank providers |
-| **Agent Strategy** | Custom reasoning loops (ReAct, Function Calling variants) |
-| **Trigger** | Event-based workflow triggers (webhooks, schedules) |
-
-Includes SDK reference, manifest format, and working code templates.
-
----
-
-## Templates
-
-Ready-to-import DSL files in `templates/`:
-
-| File | Architecture |
-|------|-------------|
-| `simple-workflow.yml` | Start → LLM → End |
-| `simple-chatbot.yml` | Start → LLM (memory) → Answer |
-| `rag-chatbot.yml` | Start → Knowledge → LLM → Answer |
-| `data-pipeline.yml` | Start → Code → Iteration[LLM] → End |
-| `api-orchestration.yml` | Start → HTTP → Code → End |
-
-Import via Dify console (Studio → Import DSL) or API:
-```bash
-curl -X POST http://your-dify/console/api/apps/imports \
-  -H "Authorization: Bearer $TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"mode": "yaml-content", "yaml_content": "'"$(cat templates/rag-chatbot.yml)"'"}'
-```
-
----
-
-## Project Structure
+## 📁 Project Structure
 
 ```
 dify-skills/
-├── .claude-plugin/           # Plugin metadata (validated)
-│   ├── marketplace.json
-│   └── plugin.json
+├── .claude-plugin/           # Plugin metadata (validated ✔)
 ├── skills/                   # 8 specialist skills
-│   ├── using-dify-skills/    # Router (always loaded)
+│   ├── using-dify-skills/    # Router
 │   ├── dify-dsl-expert/      # DSL format + validation
-│   ├── dify-node-catalog/    # Node configs (5 reference files)
-│   ├── dify-workflow-patterns/ # 8 pattern files
+│   ├── dify-node-catalog/    # 40 nodes (5 reference files)
+│   ├── dify-workflow-patterns/ # 8 patterns
 │   ├── dify-variable-system/ # Selector syntax
-│   ├── dify-app-debugger/    # Debug protocol + error catalog
+│   ├── dify-app-debugger/    # Debug protocol + errors
 │   ├── dify-import-export/   # API deployment
-│   └── dify-plugin-maker/    # Plugin dev (4 reference files)
-├── templates/                # Import-ready DSL YAML
+│   └── dify-plugin-maker/    # Plugin dev (4 files)
+├── templates/                # Import-ready DSL YAML (5)
 ├── hooks/                    # Session-start hook
 ├── evaluations/              # Test scenarios (4 suites)
-├── docs/                     # Research + design spec
-├── CLAUDE.md                 # Project instructions
-├── LICENSE                   # MIT
-└── README.md
+└── docs/                     # Research + design spec
 ```
 
 ---
 
-## How It Works
-
-This project follows the **structured knowledge injection** pattern:
-
-1. **Router skill** loads at session start → knows all capabilities
-2. **User describes intent** → router dispatches to specialist
-3. **Specialist skill** provides expert knowledge (schemas, patterns, rules)
-4. **LLM generates** valid output following the skill's guidance
-5. **Validation rules** catch mistakes before output
-
-No fine-tuning. No structured output schemas for generation. Just well-organized expert knowledge that gets injected at the right moment.
-
----
-
-## Contributing
+## 🤝 Contributing
 
 1. Fork the repo
 2. Add/improve skills in `skills/`
@@ -184,6 +254,15 @@ No fine-tuning. No structured output schemas for generation. Just well-organized
 
 ---
 
-## License
+## 🔗 Related Projects
 
-MIT
+- [Dify](https://github.com/langgenius/dify) — The LLM app platform
+- [dify-official-plugins](https://github.com/langgenius/dify-official-plugins) — Official plugin collection
+- [n8n-skills](https://github.com/czlonkowski/n8n-skills) — Similar approach for n8n
+- [superpowers](https://github.com/obra/superpowers) — Claude Code development methodology
+
+---
+
+## 📝 License
+
+[MIT](LICENSE)
