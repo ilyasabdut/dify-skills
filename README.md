@@ -23,6 +23,7 @@ Building Dify apps by hand means learning DSL YAML format, node configuration sc
 - ✅ Debug broken DSL files with systematic error identification
 - ✅ Scaffold custom Dify plugins (tools, models, agent strategies, triggers)
 - ✅ Validated against `claude plugin validate` — clean install
+- ✅ MCP server for live Dify instance integration (import, export, list datasets/models)
 
 ---
 
@@ -46,6 +47,33 @@ Add to your project's `.claude/settings.json`:
 git clone https://github.com/ilyasabdut/dify-skills.git
 claude --plugin-dir ./dify-skills
 ```
+
+### MCP Server Setup (Optional)
+
+The MCP server connects to your Dify instance for live operations (import apps, list datasets, etc).
+
+1. Set environment variables:
+```bash
+export DIFY_URL=http://your-dify-instance/console/api
+export DIFY_TOKEN=your-console-bearer-token
+```
+
+2. The MCP server starts automatically when the plugin loads. Configure env vars in `.claude/settings.json`:
+```json
+{
+  "plugins": ["/path/to/dify-skills"],
+  "mcpServers": {
+    "dify": {
+      "env": {
+        "DIFY_URL": "http://localhost/console/api",
+        "DIFY_TOKEN": "your-token"
+      }
+    }
+  }
+}
+```
+
+Without the MCP server, skills still work — they generate DSL YAML that you import manually.
 
 ---
 
@@ -156,6 +184,32 @@ Create custom Dify plugins from scratch — tools, models, agent strategies, tri
 - Trigger plugin guide
 - Remote debugging setup
 - SDK quick reference
+
+---
+
+## 🔌 MCP Server Tools
+
+When connected to a Dify instance, the MCP server provides:
+
+| Tool | Description |
+|------|-------------|
+| `dify_list_apps` | List all apps (ID, name, mode) |
+| `dify_export_app` | Export app as DSL YAML |
+| `dify_import_app` | Import DSL YAML as new app |
+| `dify_list_datasets` | List knowledge bases (get real IDs for templates) |
+| `dify_list_models` | List configured model providers |
+| `dify_get_app_detail` | Get app details + workflow graph |
+| `dify_list_tools` | List available tools for workflow nodes |
+| `dify_validate_dsl` | Validate DSL without importing |
+
+**Workflow with MCP:**
+```
+1. dify_list_models → get available providers
+2. dify_list_datasets → get real dataset IDs
+3. Skills generate DSL with real values (no placeholders)
+4. dify_validate_dsl → check structure
+5. dify_import_app → deploy directly
+```
 
 ---
 
