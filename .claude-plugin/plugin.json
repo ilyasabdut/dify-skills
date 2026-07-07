@@ -18,15 +18,5 @@
     "rag",
     "mcp"
   ],
-  "skills": "./skills/",
-  "mcpServers": {
-    "dify": {
-      "command": "uv",
-      "args": ["run", "--project", "${CLAUDE_PLUGIN_ROOT}/mcp-server", "python", "${CLAUDE_PLUGIN_ROOT}/mcp-server/main.py"],
-      "env": {
-        "DIFY_URL": "",
-        "DIFY_TOKEN": ""
-      }
-    }
-  }
+  "skills": "./skills/"
 }
